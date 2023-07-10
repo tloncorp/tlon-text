@@ -1,3 +1,8 @@
+---
+import Footer from '../components/Footer.astro';
+import Navigation from '../components/Navigation.astro';
+---
+
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -29,15 +34,16 @@
 		<meta name="twitter:image" 			content="https://d2w9rnfcy7mm78.cloudfront.net/20991844/original_05337a7edcadf2b018a2c4d14d4a3139.png">
 	</head>
 	<body class="
-		p-8 
-		lg:p-32
-		text-xl
+		p-6 
+		lg:p-10
 		antialiased 
 		text-stone-800 
 		dark:bg-stone-800 
 		dark:text-stone-300
 	">
+		<Navigation />
 		<slot/>
+		<Footer />
 	</body>
 </html>
 

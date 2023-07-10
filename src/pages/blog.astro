@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+const allPosts = await Astro.glob('../pages/blog/*.md');
+import Button from '../components/Button.astro';
+import ButtonPrimary from '../components/ButtonPrimary.astro';
+import HeroText from '../components/HeroText.astro';
+---
+<Base>
+    <HeroText>
+        This is the tip of the iceberg. <br><br> You can find us way more active in <br> <a class="text-blue-500" href="https://tlon.network/lure/~nibset-napwyn/tlon">Tlon Local</a>, our little home on the Urbit network, open to anyone. <br> <br> Not on Urbit? <br> Don’t worry, we made it easy.
+    </HeroText>
+
+    <div class="lg:mb-8 lg:flex gap-2">
+        <ButtonPrimary label="Join Now for Free" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
+        <Button label="Subscribe to our Newsletter" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
+    </div>
+
+    <ul class="lg:flex flex-wrap gap-8">
+        {allPosts.map((post) => 
+            <li class="grow mt-6 mb-6 lg:mt-0 lg:mb-8 rounded-2xl lg:rounded-3xl border-2 border-stone-300/20 overflow-hidden">
+                <a href={post.url}>
+                    <div class="flex flex-col gap-6 p-8">
+                        <p class="text-neutral-400">{post.frontmatter.tags}</p>
+                        <h2 class="
+                                tracking-tight
+                                lg:max-w-xl
+                                text-2xl
+                                text-black
+                                font-normal
+                                lg:text-3xl
+                                leading-tight
+                            ">
+                            {post.frontmatter.title}
+                        </h2>
+                        <div class="flex flex-row gap-4">
+                            <img class="h-6 self-center" src="../favicon.svg">
+                            <p class="text-neutral-500">{post.frontmatter.author}</p>
+                        </div>
+                        <p class="text-neutral-400">{post.frontmatter.pubDate.slice(0, 10)}</p>
+                    </div>
+                </a>
+            </li> 
+        )}
+    </ul>
+
+    <HeroText>
+        Join the conversation <br> and read more on <br> <span class="text-blue-500">Tlon Local</span>, our little home <br> on the Urbit network.
+    </HeroText>
+    
+    <div class="lg:mb-8 lg:flex gap-2">
+        <ButtonPrimary label="Join Now for Free" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
+        <Button label="Subscribe to our Newsletter" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
+    </div>
+</Base>

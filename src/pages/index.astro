@@ -1,56 +1,51 @@
 ---
 import Base from '../layouts/Base.astro';
-import Button from '../components/Button.astro';
+import ButtonPrimary from '../components/ButtonPrimary.astro';
+import HeroText from '../components/HeroText.astro';
+import CardFull from '../components/CardFull.astro';
+import CardHalf from '../components/CardHalf.astro';
+import CardFullMobile from '../components/CardFullMobile.astro';
 ---
 <Base>
-    <header class="flex flex-col justify-center lg:text-center">
-        <section class="self-center">
-            <h1 class="
-                tracking-tighter
-                lg:max-w-4xl
-                text-2xl
-                font-medium
-                lg:text-6xl
-                leading-tight
-                lg:leading-tight
-                pt-2
-                lg:py-0
-            ">
-                You’ve reached Tlon’s website. <br> You can find us on Urbit. <br> Don’t worry, we made it easy.
-            </h1>
-            
-            <Button label="Get Started for Free" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
-            <Button label="Login" link="https://tlon.network/login" />
-        </section>
-    </header>
-
-    <img 
-        src="/over.jpg"
-        class="w-screen mt-6 mb-6 lg:mt-18 lg:mb-12 rounded-lg lg:rounded-3xl opacity-0 transition-opacity duration-1000 ease-in-out"
+    <HeroText>
+        There are hundreds <br> of ways to communicate <br> and collaborate online. <br> <br> 
+        There's only one that’s entirely <br> yours to own, customize, <br> and hold onto forever.
+    </HeroText>
+    
+    <div class="mb-8">
+    <ButtonPrimary label="Get Started for Free" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
+    </div>
+    
+    <CardFull 
+        herocopy="Groups: Communities, your way." 
+        buttoncopy="Get Started for Free"
+        link="https://tlon.network/lure/~nibset-napwyn/tlon"
+        imagelink="/talk-in-groups.png"
     />
 
-    <section class="flex flex-col justify-center">
-        <article class="tracking-tight max-w-xl self-center">
-        <p class="py-4 text-lg">We’re packing up this site and going all in on Urbit.</p>
-        <p class="py-4 text-lg">Why are we sold on it? We used it to build Landscape, an Urbit-native suite of apps for staying connected to our friends, family and colleagues. We use it on a daily basis. It’s clean and simple, intimate and inspiring.</p>
-        <p class="py-4 text-lg">Sure, there are hundreds of ways to communicate and collaborate online. This is the only one that’s entirely yours to own, customize and hold onto forever. </p>
-        <p class="py-4 text-lg">If you want to try it out or get in touch, join us on the Urbit network. It’s easier to join and use than ever before.</p>
-        <p class="py-4 text-lg">See you on the network,</p>
-        <p class="py-4 text-lg">Galen <inline class="text-stone-400">~ravmel-ropdyl</inline></p>
+    <div class="lg:flex gap-8">
+        <CardHalf 
+            herocopy="In Groups, a channel can be a book, a report, a diary..." 
+            imagelink="/notebook.png"
+        />
+        <CardHalf
+            herocopy="...a moodboard, a soundtrack, or an archive." 
+            imagelink="/gallery.png"
+        />
+    </div>
 
-        <Button label="Get Started for Free" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
-        <Button label="Login" link="https://tlon.network/login" />
+    <CardFullMobile
+        herocopy="Talk it out." 
+        buttoncopy="Get on Testflight"
+        link="https://tlon.network/lure/~nibset-napwyn/tlon"
+        imagelink="/smalltalk.png"
+    />
 
-        <p class="pt-4 text-lg text-stone-400"><a href="/terms">Terms of Service</a></p>
-        <p class="text-lg text-stone-400"><a href="/privacy">Privacy Policy</a></p>
-        </article>
-    </section>
+    <HeroText>
+        Landscape is an Urbit-native suite of apps for staying connected with your friends, family and colleagues. <br> <br>
+        At Tlon, we use it every day to keep in touch and build out the internet of our dreams. It’s intimate and inspiring, clean and simple. <br> <br>
+        We love it, and we think you will too. 
+    </HeroText>
+
+    <ButtonPrimary label="Get Started for Free" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
 </Base>
-
-<script>
-    window.addEventListener('load', () => {
-      const img = document.querySelector('img');
-      img.classList.remove('opacity-0');
-      img.classList.add('opacity-100');
-    });
-  </script>

@@ -1,0 +1,52 @@
+---
+import Base from "./Base.astro";
+const { frontmatter } = Astro.props;
+import Button from '../components/Button.astro';
+import ButtonPrimary from '../components/ButtonPrimary.astro';
+---
+<Base>
+	<img 
+	src="../example.jpg"
+	class="w-100 mt-6 mb-6 lg:mt-2 lg:mb-8 rounded-2xl lg:rounded-3xl"
+	/>
+	<section class="flex flex-col justify-center">
+		<article class="pt-4 prose prose-xl text-black dark:prose-invert prose-a:no-underline prose-h1:m-0 prose-h3:m-0 leading-7 self-center">
+			<div class="flex flex-col gap-4 mt-16 mb-24">
+				<h3 class="text-lg font-normal text-neutral-400">{frontmatter.tags}</h3>
+				<h1 class="
+					tracking-tight
+					lg:max-w-md
+					text-2xl
+					font-normal
+					lg:text-4xl
+					leading-tight
+				">
+				{frontmatter.title}
+				</h1>
+				<div class="flex flex-row gap-4">
+					<h3 class="font-normal text-lg text-neutral-500">{frontmatter.author}</h3>
+					<h3 class="font-normal text-lg text-neutral-400">{frontmatter.pubDate.slice(0, 10)}</h3>
+				</div>
+			</div>
+			<slot/>
+		</article>
+		<header class="self-center my-20">
+			<h1 class="
+				tracking-tight
+				lg:max-w-md
+				text-2xl
+				font-normal
+				lg:text-3xl
+				leading-tight
+				pt-2
+				lg:py-0
+				mb-10
+			">
+			Updates from Tlon
+			</h1>
+			
+			<ButtonPrimary label="Get Started for Free" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
+			<Button label="Subscribe to our Newsletter" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
+	</header>
+	</section>
+</Base>

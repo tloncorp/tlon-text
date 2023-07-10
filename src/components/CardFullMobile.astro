@@ -1,0 +1,55 @@
+---
+const { herocopy, buttoncopy, link, imagelink } = Astro.props;
+import Button from '../components/Button.astro';
+import ButtonPrimary from '../components/ButtonPrimary.astro';
+---
+<section class="
+            w-100
+
+            my-4
+            p-5
+            pb-0
+            lg:pt-8
+            lg:px-8
+
+            bg-orange-50/40
+
+            border-2 
+            border-stone-300/20
+            rounded-2xl 
+            lg:rounded-3xl
+
+            overflow-hidden">
+    <section class="grid grid-cols-2 gap-4">
+        <!-- Hero Blurb -->
+        <section class="">
+            <h2 class="
+
+                mb-4
+
+                text-2xl
+                lg:text-3xl
+
+                font-normal
+                tracking-tight
+                leading-tight
+                ">
+                Small Talk is here. <br> <br>
+                Take your discussion on the go with the mobile version of our Talk app. <br> <br> 
+                Small Talk is currently in beta. You’ll need TestFlight and an Urbit ID to try it out. 
+            </h2>
+
+            <div class="lg:mb-8 lg:flex gap-2">
+                <ButtonPrimary label="Get Urbit for Free" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
+                <Button label="Download Small Talk" link="https://tlon.network/lure/~nibset-napwyn/tlon" />
+            </div>
+        </section>
+        <!-- Hero Image -->
+        <div class="flex justify-center">
+            <img 
+                src={imagelink}
+                class="drop-shadow-2xl"
+            />
+        </div>
+    </section>
+</section>
