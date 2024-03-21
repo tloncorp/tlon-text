@@ -27,7 +27,7 @@ const { author, excerpt, featuredImage, slug, title } = Astro.props;
       <h2 class="text-xl sm:text-2xl">
         {title}
       </h2>
-      <Author author={author} />
+      <Author author={author} link={false} />
       <PortableText portableText={excerpt} />
     </div>
   </a>

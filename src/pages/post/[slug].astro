@@ -25,9 +25,14 @@ interface Props {
   metaDescription: string;
   metaTitle: string;
   relatedPosts: relatedPost[];
+  tags: tag[];
   title: string;
 }
 
+interface tag {
+  title: string;
+  slug: string;
+}
 interface relatedPost {
   title: string;
   slug: string;
@@ -48,6 +53,7 @@ const {
   featuredVideo,
   metaTitle,
   metaDescription,
+  tags,
   title,
   relatedPosts,
 } = Astro.props;
@@ -79,6 +85,22 @@ const {
     <div class="mx-auto max-w-inner-sm">
       <PortableText portableText={body} />
     </div>
+
+    {
+      tags && (
+        <div class="mx-auto max-w-inner-sm pt-20">
+          <h6 class="mb-6 text-md">Tagged:</h6>
+          {tags.map((tag: tag) => (
+            <a
+              class="mb-3 mr-3 inline-block rounded-xl bg-mono-100 px-4 py-2.5 text-mono-600 transition-colors hover:bg-mono-200 sm:text-md dark:bg-mono-800 dark:text-white dark:hover:bg-mono-700"
+              href={`/tag/${tag.slug}`}
+            >
+              #{tag.slug}
+            </a>
+          ))}
+        </div>
+      )
+    }
 
     {
       relatedPosts && relatedPosts.length > 0 && (

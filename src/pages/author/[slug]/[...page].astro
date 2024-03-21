@@ -1,0 +1,41 @@
+---
+import { getAuthorPage } from "../../../utils/api";
+
+import GlobalLayout from "../../../layouts/GlobalLayout.astro";
+import ExcerptList from "../../../components/ExcerptList.astro";
+
+interface Props {
+  page: any;
+  authorSlug: string;
+}
+
+export async function getStaticPaths({ paginate }: any) {
+  const authorObjects = await getAuthorPage();
+  const allCategories: any[] = [];
+  authorObjects.forEach((tabObject: { slug: any }) =>
+    allCategories.push(tabObject.slug)
+  );
+  return allCategories.flatMap(author => {
+    const filteredPosts = authorObjects.find(
+      (tagObject: { slug: any }) => tagObject.slug === author
+    );
+    return paginate(filteredPosts.posts, {
+      params: { slug: author },
+      props: { authorSlug: filteredPosts.slug },
+      pageSize: Number(import.meta.env.postsPerPage),
+    });
+  });
+}
+
+const { page, authorSlug } = Astro.props;
+---
+
+<GlobalLayout metaTitle=`Posts written by ${authorSlug}`>
+  <header class="mx-auto max-w-inner-sm pb-16">
+    <h1 class="text-2xl">
+      Posts written by:
+      <span class="text-primary">~{authorSlug}</span>
+    </h1>
+  </header>
+  <ExcerptList page={page} />
+</GlobalLayout>

@@ -9,7 +9,7 @@ interface Props {
   large?: boolean;
 }
 
-const { author, large = true } = Astro.props;
+const { author, link = true, large = true } = Astro.props;
 
 const formattedTextSize = large
   ? "text-md"
@@ -22,18 +22,39 @@ const formattedImageSize = large
 const hasAvatar = author.image !== null;
 ---
 
-<div class:list={["flex items-center", { "space-x-4": hasAvatar }]}>
-  <div class={formattedImageSize}>
-    {
-      hasAvatar && (
-        <Picture
-          asset={author.image}
-          visualMaxWidth={32}
-          rounded
-          mixBlend={false}
-        />
-      )
-    }
-  </div>
-  <span class:list={[formattedTextSize]}>{author.urbitId}</span>
-</div>
+{
+  link ? (
+    <a
+      class:list={["group flex items-center", { "space-x-4": hasAvatar }]}
+      href={`/author/${author.slug}`}
+    >
+      <div class={formattedImageSize}>
+        {hasAvatar && (
+          <Picture
+            asset={author.image}
+            visualMaxWidth={32}
+            rounded
+            mixBlend={false}
+          />
+        )}
+      </div>
+      <span class:list={["group-hover:text-primary", formattedTextSize]}>
+        {author.urbitId}
+      </span>
+    </a>
+  ) : (
+    <div class:list={["flex items-center", { "space-x-4": hasAvatar }]}>
+      <div class={formattedImageSize}>
+        {hasAvatar && (
+          <Picture
+            asset={author.image}
+            visualMaxWidth={32}
+            rounded
+            mixBlend={false}
+          />
+        )}
+      </div>
+      <span class:list={[formattedTextSize]}>{author.urbitId}</span>
+    </div>
+  )
+}

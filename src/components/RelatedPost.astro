@@ -25,7 +25,7 @@ const { author, created, featuredImage, slug, title } = Astro.props;
     </div>
     <div class="space-y-4 pt-4">
       <h6 class="text-md lg:text-lg">{title}</h6>
-      <Author author={author} large={false} />
+      <Author author={author} large={false} link={false} />
       <time
         class="inline-block text-base text-mono-500 lg:text-md"
         datetime={created}
