@@ -16,18 +16,20 @@ const { author, excerpt, featuredImage, slug, title } = Astro.props;
 ---
 
 <div>
-  <a class="mx-auto" href={`/post/${slug}`}>
+  <a class="mx-auto" href={`/posts/${slug}`}>
     <div class="mx-auto max-w-inner-xs items-center">
       <div class="mx-auto inline-block">
+        <div class="aspect-[16/9] rounded-2xl overflow-hidden">
         <Picture asset={featuredImage} visualMaxWidth={1120} />
       </div>
+      </div>
       <header class="flex items-center py-1">
-        <h2 class="inline-block text-lg">
+        <h2 class="inline-block text-lg font-medium tracking-tight">
           {title}
           <span class="whitespace-nowrap opacity-40">{author.label}</span>
         </h2>
       </header>
-      <div class="prose prose-lg prose-tlon dark:prose-invert leading-normal">
+      <div class="prose prose-lg prose-tlon dark:prose-invert leading-normal text-[#666]">
         <PortableTextInternal value={excerpt} />
       </div>
     </div>

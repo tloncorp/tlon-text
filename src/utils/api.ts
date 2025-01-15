@@ -38,6 +38,35 @@ export async function getHomePosts() {
   return data;
 }
 
+// Get Homecards for homepage
+export async function getHomeCards() {
+  const query = `{
+    "cards": *[_type == "homeCard"] | order(order asc) {
+      order,
+      cardType,
+      headline,
+      body,
+      bodyMinimized,
+      media,
+      button,
+      title,
+      subtitle,
+      videos[] {
+        title,
+        duration,
+        video {
+          "url": video.asset->url,
+          "poster": video.poster.asset->url,
+          width,
+          height
+        }
+      }
+    }
+  }`;
+  const data = await sanityClient.fetch(query);
+  return data;
+}
+
 // Tag page with all posts related to that tag
 export async function getTagPage() {
   const query = `*[_type == "tag"] {
@@ -172,6 +201,25 @@ export async function getFooterNav() {
   }`;
   const data = await sanityClient.fetch(query);
   return data.links;
+}
+
+export async function getVideoGallery(id: string) {
+  const query = `*[_type == "videoGallery" && _id == $id][0] {
+    title,
+    subtitle,
+    videos[] {
+      title,
+      duration,
+      video {
+        "url": video.asset->url,
+        "poster": video.poster.asset->url,
+        width,
+        height
+      }
+    }
+  }`;
+  
+  return sanityClient.fetch(query, { id });
 }
 
 function paramMap(items: any) {

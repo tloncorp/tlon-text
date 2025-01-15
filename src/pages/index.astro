@@ -1,0 +1,51 @@
+---
+import GlobalLayout from "../layouts/GlobalLayout.astro";
+import FeatureCard from "../components/HomeCards/FeatureCard";  
+import HeroCard from "../components/HomeCards/HeroCard";
+import PostsCard from "../components/HomeCards/PostsCard";
+import VideoGalleryCard from "../components/HomeCards/VideoGalleryCard";
+import { getHomeCards, getHomePosts } from "../utils/api";
+
+const homeCardsResponse = await getHomeCards();
+const homeCards = homeCardsResponse?.cards || [];
+const posts = (await getHomePosts()).reverse();
+---
+
+<GlobalLayout>
+  <div class="max-w-inner-xs md:max-w-inner-sm mx-auto pt-16">
+    {homeCards.find((card: any) => card.cardType === 'hero') && (
+      <HeroCard 
+        {...homeCards.find((card: any) => card.cardType === 'hero')} 
+        isTopCard={true}
+        index={0}
+        client:load
+      />
+    )}
+
+    <PostsCard
+      cardType="posts"
+      headline="Latest Posts"
+      body=""
+      isTopCard={false}
+      index={1}
+      posts={posts}
+      client:load
+    />
+
+    {homeCards
+      .filter((card: any) => card.cardType !== 'hero')
+      .map((card: any, index: number) => {
+        const props = {
+          ...card,
+          isTopCard: false,
+          index: index + 2,
+        };
+
+        switch (card.cardType) {
+          case 'feature': return <FeatureCard {...props} client:load />;
+          case 'videoGallery': return <VideoGalleryCard {...props} client:load />;
+          default: return null;
+        }
+    })}
+  </div>
+</GlobalLayout>

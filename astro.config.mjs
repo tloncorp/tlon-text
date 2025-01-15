@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import { sanityIntegration } from "@sanity/astro";
+import react from '@astrojs/react';
 
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
@@ -12,9 +13,10 @@ export default defineConfig({
   integrations: [
     sanityIntegration({
       projectId: "4vy6phvk",
-      dataset: "production",
+      dataset: "staging",
       useCdn: false,
     }),
+    react(),
     tailwind({
       applyBaseStyles: false,
     }),

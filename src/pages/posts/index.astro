@@ -1,0 +1,39 @@
+---
+import { getHomePosts, getGlobalContent } from "../../utils/api";
+import GlobalLayout from "../../layouts/GlobalLayout.astro";
+import NewsletterSignup from "../../components/NewsletterSignup.astro";
+import ExcerptList from "../../components/ExcerptList.astro";
+import PageTitle from "@components/PageTitle.astro";
+import type { paginatedPageObj } from "../../utils/types";
+
+const posts = await getHomePosts();
+const globalContent = await getGlobalContent();
+
+const postsPerPage = 10;
+const currentPage = parseInt(Astro.url.searchParams.get('page') || '1');
+const start = (currentPage - 1) * postsPerPage;
+const end = start + postsPerPage;
+const paginatedPosts = posts.slice(start, end);
+
+const page: paginatedPageObj = {
+  data: posts,
+  total: posts.length,
+  url: {
+    current: `/posts?page=${currentPage}`,
+    prev: currentPage > 1 ? `/posts?page=${currentPage - 1}` : undefined,
+    next: end < posts.length ? `/posts?page=${currentPage + 1}` : undefined
+  },
+  start: 0, 
+  end: posts.length, 
+  size: posts.length,
+  currentPage: 1, 
+  lastPage: 1
+};
+---
+
+<GlobalLayout>
+  <div class="max-w-inner-xs mx-auto space-y-16 pb-36 pt-24 sm:pb-36">
+    <ExcerptList page={page} />
+    <NewsletterSignup />
+  </div>
+</GlobalLayout>

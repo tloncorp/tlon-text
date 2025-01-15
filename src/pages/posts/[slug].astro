@@ -57,7 +57,7 @@ const {
   metaTitle={metaTitle ? metaTitle : title}
 >
   <article>
-    <header class="max-w-inner-xs md:max-w-inner-sm mx-auto space-y-4">
+    <header class="max-w-inner-xs md:max-w-inner-sm mx-auto space-y-4 font-medium tracking-tight">
       <PageTitle title={title} />
       <Author author={author} />
     </header>
@@ -65,12 +65,14 @@ const {
 
     {
       featuredVideo ? (
-        <div class="mx-auto max-w-inner-lg py-16">
+        <div class="mx-auto max-w-inner-lg py-16 ">
           <Video asset={featuredVideo} />
         </div>
       ) : (
-        <div class="mx-auto flex max-w-inner-lg items-center py-16">
-          <Picture asset={featuredImage} visualMaxWidth={750} />
+        <div class="mx-auto flex max-w-inner-lg items-center justify-center py-16">
+          <div class="overflow-hidden rounded-2xl aspect-[16/9]">
+            <Picture asset={featuredImage} visualMaxWidth={750} />
+          </div>
         </div>
       )
     }

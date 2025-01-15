@@ -1,0 +1,30 @@
+---
+import type { HomeCard } from '../utils/types';
+import FeatureCard from './HomeCards/FeatureCard';
+import HeroCard from './HomeCards/HeroCard';
+import PostsCard from './HomeCards/PostsCard';
+import VideoGalleryCard from './HomeCards/VideoGalleryCard';
+
+interface Props extends HomeCard {
+  isTopCard?: boolean;
+  index?: number;
+  posts?: any[];
+}
+
+const { cardType, isTopCard = false, index = 0, posts } = Astro.props;
+
+const CardComponent = {
+  feature: FeatureCard,
+  hero: HeroCard,
+  posts: PostsCard,
+  videoGallery: VideoGalleryCard
+}[cardType] || FeatureCard;
+---
+
+<CardComponent
+  client:load
+  {...Astro.props}
+  isTopCard={isTopCard}
+  index={index}
+  posts={posts ?? []}
+/>

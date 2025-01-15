@@ -2,14 +2,14 @@ import {defineType} from 'sanity'
 
 export default defineType({
   name: 'homeCard',
-  title: 'Home Cards',
+  title: 'Home Card',
   type: 'document',
   fields: [
     {
       name: 'order',
       title: 'Order',
       type: 'number',
-      validation: (rule) => rule.required().integer().positive(),
+      description: 'Used to determine the display order of cards',
     },
     {
       name: 'cardType',
@@ -17,35 +17,38 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'Hero', value: 'hero'},
-          {title: 'Story', value: 'story'},
-          {title: 'Feature', value: 'feature'},
-          {title: 'Footer', value: 'footer'},
+          { title: 'Hero', value: 'hero' },
+          { title: 'Feature', value: 'feature' },
+          { title: 'Story', value: 'story' },
+          { title: 'CTA', value: 'cta' },
+          { title: 'Posts', value: 'posts' },
+          { title: 'Video Gallery', value: 'videoGallery' },
         ],
       },
-      validation: (rule) => rule.required(),
     },
     {
       name: 'headline',
       title: 'Headline',
       type: 'string',
-      validation: (rule) => rule.required(),
     },
     {
       name: 'body',
       title: 'Body',
       type: 'text',
-      validation: (rule) => rule.required(),
     },
     {
-      name: 'bodyMinimized',
-      title: 'Body Minimized',
-      type: 'text',
-      description: 'A shorter version of the body text',
+      name: 'button',
+      title: 'Button',
+      type: 'object',
+      fields: [
+        { name: 'title', title: 'Title', type: 'string' },
+        { name: 'url', title: 'URL', type: 'string' },
+        { name: 'openNewWindow', title: 'Open in New Window', type: 'boolean' }
+      ],
     },
     {
       name: 'media',
-      title: 'Photo or Video',
+      title: 'Media',
       type: 'object',
       fields: [
         {
@@ -54,58 +57,101 @@ export default defineType({
           type: 'string',
           options: {
             list: [
-              {title: 'Photo', value: 'photo'},
-              {title: 'Video', value: 'video'},
+              { title: 'Photo', value: 'photo' },
+              { title: 'Video', value: 'video' },
             ],
           },
-          validation: (rule: any) => rule.required(),
         },
         {
           name: 'photo',
           title: 'Photo',
           type: 'image',
-          hidden: ({parent}: any) => parent?.type !== 'photo',
+          hidden: ({ parent }) => parent?.type !== 'photo',
         },
         {
           name: 'video',
           title: 'Video',
           type: 'file',
-          hidden: ({parent}: any) => parent?.type !== 'video',
+          hidden: ({ parent }) => parent?.type !== 'video',
+          options: {
+            accept: 'video/*',
+            storeOriginalFilename: true
+          },
+          fields: [
+            {
+              name: 'filename',
+              type: 'string',
+              title: 'Filename',
+              readOnly: true,
+            },
+            {
+              name: 'filesize',
+              type: 'number',
+              title: 'File size',
+              readOnly: true,
+            },
+            {
+              name: 'mimeType',
+              type: 'string',
+              title: 'MIME type',
+              readOnly: true,
+            },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+            },
+            {
+              name: 'description',
+              type: 'text',
+              title: 'Description',
+            }
+          ]
         },
       ],
     },
     {
-      name: 'button',
-      title: 'Button',
-      type: 'object',
-      fields: [
+      name: 'videos',
+      title: 'Videos',
+      type: 'array',
+      hidden: ({parent}) => parent?.cardType !== 'videoGallery',
+      of: [
         {
-          name: 'title',
-          title: 'Button Text',
-          type: 'string',
-        },
-        {
-          name: 'url',
-          title: 'Button URL',
-          type: 'url',
-          validation: (rule: any) => rule.uri({
-            scheme: ['http', 'https', 'mailto', 'tel']
-          })
-        },
-        {
-          name: 'openNewWindow',
-          title: 'Open in New Window',
-          type: 'boolean',
-          initialValue: false,
-        },
-      ],
-    },
+          type: 'object',
+          fields: [
+            {
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            },
+            {
+              name: 'duration',
+              title: 'Duration',
+              type: 'string',
+            },
+            {
+              name: 'video',
+              title: 'Video',
+              type: 'blockVideo',
+            }
+          ]
+        }
+      ]
+    }
   ],
   preview: {
     select: {
       title: 'headline',
       subtitle: 'cardType',
-      media: 'media.photo',
+      media: 'media'
     },
+    prepare(selection) {
+      const {title, subtitle, media} = selection
+      return {
+        title: title || 'No title',
+        subtitle: subtitle || 'No type',
+        media: media?.photo || undefined
+      }
+    }
   },
 })
